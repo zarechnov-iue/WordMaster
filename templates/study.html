@@ -13,25 +13,32 @@
         <h1>Изучение карточек</h1>
     </header>
     <main>
-        <div class="study-card">
-            <h2 id="word">{{ current_card.word }}</h2>
-            <div id="translation" class="hidden">
-                <p><strong>Перевод:</strong> {{ current_card.translation }}</p>
-                {% if current_card.illustration %}
-                    <img src="{{ current_card.illustration }}" alt="{{ current_card.word }}" class="thumbnail">
+        {% if current_card %}
+            <div class="study-card">
+                <h2 id="word">{{ current_card.word }}</h2>
+                {% if current_card.image %}
+                    <img src="{{ current_card.image.data }}" alt="{{ current_card.word }}" class="thumbnail">
+                    <br>
                 {% endif %}
+                <div id="translation" class="hidden">
+                    <p><strong>Перевод:</strong> {{ current_card.translation }}</p>
+                </div>
+                <button id="show-translation" class="btn">Показать перевод</button>
             </div>
-            <button id="show-translation" class="btn">Показать перевод</button>
-        </div>
-        <div class="navigation">
-            <button id="prev-card" class="btn" {% if not prev_card %}disabled{% endif %}>Предыдущая</button>
-            <button id="next-card" class="btn" {% if not next_card %}disabled{% endif %}>Следующая</button>
-        </div>
+            <div class="navigation">
+                <a href="?card_id={{ prev_card.id }}" class="btn" {% if not prev_card %}disabled{% endif %}>Предыдущая</a>
+                <a href="?card_id={{ next_card.id }}" class="btn" {% if not next_card %}disabled{% endif %}>Следующая</a>
+            </div>
+        {% else %}
+            <p>Нет доступных карточек для изучения.</p>
+        {% endif %}
     </main>
     <script>
-        document.getElementById('show-translation').addEventListener('click', function() {
+        document.getElementById('show-translation')?.addEventListener('click', function() {
             const translationDiv = document.getElementById('translation');
-            translationDiv.classList.toggle('hidden');
+            if (translationDiv) {
+                translationDiv.classList.toggle('hidden');
+            }
         });
     </script>
 </body>

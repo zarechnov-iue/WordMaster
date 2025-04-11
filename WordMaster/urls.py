@@ -16,6 +16,8 @@ Including another URLconf
 """
 # from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 
 from main import views
 
@@ -24,4 +26,7 @@ urlpatterns = [
     path('add-card', views.AddCardView.as_view(),  name='add-card'),
     path('cards', views.CardsView.as_view(),  name='cards'),
     path('study', views.StudyView.as_view(),  name='study'),
+    path('delete-card/<int:card_id>/',  views.DeleteCardView.as_view(), name='delete-card'),
 ]
+
+urlpatterns += static('images', document_root=settings.MEDIA_ROOT+'/images')

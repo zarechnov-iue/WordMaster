@@ -13,6 +13,15 @@
         <h1>Список всех карточек</h1>
     </header>
     <main>
+        <!-- Вывод сообщений -->
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    
         <table class="card-table">
             <thead>
                 <tr>
@@ -23,25 +32,31 @@
                 </tr>
             </thead>
             <tbody>
-                {% for card in cards %}
-                <tr>
-                    <td>{{ card.word }}</td>
-                    <td>{{ card.translation }}</td>
-                    <td>
-                        {% if card.illustration %}
-                            <img src="{{ card.illustration }}" alt="{{ card.word }}" class="thumbnail">
-                        {% else %}
-                            Нет иллюстрации
-                        {% endif %}
-                    </td>
-                    <td>
-                        <form method="post" action="{% url 'delete-card' card.id %}" class="delete-form">
-                            {% csrf_token %}
-                            <button type="submit" class="btn delete-btn">Удалить</button>
-                        </form>
-                    </td>
-                </tr>
-                {% endfor %}
+                {% if cards %}
+                    {% for card in cards %}
+                    <tr>
+                        <td>{{ card.word }}</td>
+                        <td>{{ card.translation }}</td>
+                        <td>
+                            {% if card.image %}
+                                  <img src="{{ card.image.data }}" alt="{{ card.word }}" class="thumbnail">
+                            {% else %}
+                                Нет иллюстрации
+                            {% endif %}
+                        </td>
+                        <td>
+                            <form method="post" action="{% url 'delete-card' card.id %}" class="delete-form">
+                                {% csrf_token %}
+                                <button type="submit" class="btn delete-btn">Удалить</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="4">Нет доступных карточек</td>
+                    </tr>
+                {% endif %}
             </tbody>
         </table>
     </main>
