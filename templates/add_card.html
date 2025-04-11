@@ -14,13 +14,7 @@
     </header>
     <main>
         <!-- Вывод сообщений -->
-        {% if messages %}
-            <div class="messages">
-                {% for message in messages %}
-                    <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
-                {% endfor %}
-            </div>
-        {% endif %}
+        {% include 'messages.html' %}
 
         <form method="post" action="{% url 'add-card' %}" class="card-form">
             {% csrf_token %}
