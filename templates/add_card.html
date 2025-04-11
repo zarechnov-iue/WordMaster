@@ -1,0 +1,34 @@
+<!-- templates/add_card.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавление карточки</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Добавить новую карточку</h1>
+    </header>
+    <main>
+        <form method="post" action="{% url 'add-card' %}" class="card-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="word">Слово (обязательное поле):</label>
+                <input type="text" id="word" name="word" required>
+            </div>
+            <div class="form-group">
+                <label for="translation">Перевод (обязательное поле):</label>
+                <input type="text" id="translation" name="translation" required>
+            </div>
+            <div class="form-group">
+                <label for="illustration">Иллюстрация (URL, необязательное поле):</label>
+                <input type="url" id="illustration" name="illustration">
+            </div>
+            <button type="submit" class="btn">Добавить карточку</button>
+        </form>
+    </main>
+</body>
+</html>

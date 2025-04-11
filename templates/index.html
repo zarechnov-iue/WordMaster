@@ -1,0 +1,33 @@
+<!-- templates/index.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная страница</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Добро пожаловать в сервис изучения карточек!</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Описание сервиса</h2>
+            <p>Этот сервис помогает вам изучать новые слова с помощью интерактивных карточек.</p>
+        </section>
+        <section>
+            <h2>Краткое руководство</h2>
+            <ol>
+                <li>Добавьте новые карточки через форму на странице <a href="{% url 'add-card' %}">Создания карточек</a>.</li>
+                <li>Просматривайте все карточки на странице <a href="{% url 'cards' %}">Просмотра карточек</a>.</li>
+                <li>Изучайте карточки в интерактивном режиме на странице <a href="{% url 'study' %}">Изучения карточек</a>.</li>
+            </ol>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 WordMaster</p>
+    </footer>
+</body>
+</html>

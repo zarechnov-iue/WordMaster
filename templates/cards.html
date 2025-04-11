@@ -1,0 +1,49 @@
+<!-- templates/cards.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список карточек</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Список всех карточек</h1>
+    </header>
+    <main>
+        <table class="card-table">
+            <thead>
+                <tr>
+                    <th>Слово</th>
+                    <th>Перевод</th>
+                    <th>Иллюстрация</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for card in cards %}
+                <tr>
+                    <td>{{ card.word }}</td>
+                    <td>{{ card.translation }}</td>
+                    <td>
+                        {% if card.illustration %}
+                            <img src="{{ card.illustration }}" alt="{{ card.word }}" class="thumbnail">
+                        {% else %}
+                            Нет иллюстрации
+                        {% endif %}
+                    </td>
+                    <td>
+                        <form method="post" action="{% url 'delete-card' card.id %}" class="delete-form">
+                            {% csrf_token %}
+                            <button type="submit" class="btn delete-btn">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!-- templates/study.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Изучение карточек</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Изучение карточек</h1>
+    </header>
+    <main>
+        <div class="study-card">
+            <h2 id="word">{{ current_card.word }}</h2>
+            <div id="translation" class="hidden">
+                <p><strong>Перевод:</strong> {{ current_card.translation }}</p>
+                {% if current_card.illustration %}
+                    <img src="{{ current_card.illustration }}" alt="{{ current_card.word }}" class="thumbnail">
+                {% endif %}
+            </div>
+            <button id="show-translation" class="btn">Показать перевод</button>
+        </div>
+        <div class="navigation">
+            <button id="prev-card" class="btn" {% if not prev_card %}disabled{% endif %}>Предыдущая</button>
+            <button id="next-card" class="btn" {% if not next_card %}disabled{% endif %}>Следующая</button>
+        </div>
+    </main>
+    <script>
+        document.getElementById('show-translation').addEventListener('click', function() {
+            const translationDiv = document.getElementById('translation');
+            translationDiv.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
