@@ -1,4 +1,3 @@
-<!-- templates/add_card.html -->
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -6,32 +5,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Добавление карточки</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <header>
-        <h1>Добавить новую карточку</h1>
-    </header>
-    <main>
+    <!-- Header -->
+    {% include 'header.html' %}
+
+    <main class="container">
         <!-- Вывод сообщений -->
         {% include 'messages.html' %}
 
-        <form method="post" action="{% url 'add-card' %}" class="card-form">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="word">Слово (обязательное поле):</label>
-                <input type="text" id="word" name="word" value="{{ word }}" required>
+        <div class="card">
+            <div class="card-content">
+                <form method="post" action="{% url 'add-card' %}" class="row">
+                    {% csrf_token %}
+                    <div class="input-field col s12">
+                        <input id="word" type="text" name="word" value="{{ word }}" required>
+                        <label for="word">Слово (обязательное поле)</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input id="translation" type="text" name="translation" value="{{ translation }}" required>
+                        <label for="translation">Перевод (обязательное поле)</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input id="illustration" type="url" name="illustration" value="{{ illustration }}">
+                        <label for="illustration">Иллюстрация (URL, необязательное поле)</label>
+                    </div>
+                    <button type="submit" class="btn">Добавить карточку</button>
+                </form>
             </div>
-            <div class="form-group">
-                <label for="translation">Перевод (обязательное поле):</label>
-                <input type="text" id="translation" name="translation" value="{{ translation }}" required>
-            </div>
-            <div class="form-group">
-                <label for="illustration">Иллюстрация (URL, необязательное поле):</label>
-                <input type="url" id="illustration" name="illustration" value="{{ illustration }}">
-            </div>
-            <button type="submit" class="btn">Добавить карточку</button>
-        </form>
+        </div>
     </main>
+
+    <!-- Footer -->
+    {% include 'footer.html' %}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>

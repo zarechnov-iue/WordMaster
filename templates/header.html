@@ -1,0 +1,31 @@
+<!-- templates/header.html -->
+<header>
+    <nav class=>
+          <div class="nav-wrapper">
+            <a href="{% url 'index' %}" class="brand-logo">WordMaster</a>
+            <a href="#" data-target="mobile-menu" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+              <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="{% url 'index' %}">Главная</a></li>
+                <li><a href="{% url 'add-card' %}">Добавить карточку</a></li>
+                <li><a href="{% url 'cards' %}">Список карточек</a></li>
+                <li><a href="{% url 'study' %}">Изучение карточек</a></li>
+              </ul>
+          </div>
+    </nav>
+
+    <!-- Мобильное меню -->
+    <ul class="sidenav" id="mobile-menu">
+        <li><a href="{% url 'index' %}">Главная</a></li>
+        <li><a href="{% url 'add-card' %}">Добавить карточку</a></li>
+        <li><a href="{% url 'cards' %}">Список карточек</a></li>
+        <li><a href="{% url 'study' %}">Изучение карточек</a></li>
+    </ul>
+</header>
+
+<script>
+    // Инициализация мобильного меню
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.sidenav');
+        M.Sidenav.init(elems);
+    });
+</script>

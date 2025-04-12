@@ -1,4 +1,3 @@
-<!-- templates/study.html -->
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -6,33 +5,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Изучение карточек</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <header>
-        <h1>Изучение карточек</h1>
-    </header>
-    <main>
+    <!-- Header -->
+    {% include 'header.html' %}
+
+    <main class="container">
         {% if current_card %}
-            <div class="study-card">
-                <h2 id="word">{{ current_card.word }}</h2>
-                {% if current_card.image %}
-                    <img src="{{ current_card.image.data }}" alt="{{ current_card.word }}" class="thumbnail">
-                    <br>
-                {% endif %}
-                <div id="translation" class="hidden">
-                    <p><strong>Перевод:</strong> {{ current_card.translation }}</p>
+            <div class="card">
+                <div class="card-content">
+                    <h2 id="word">{{ current_card.word }}</h2>
+                    {% if current_card.image %}
+                        <img src="{{ current_card.image.data }}" alt="{{ current_card.word }}" class="thumbnail">
+                        <br>
+                    {% endif %}
+                    <div id="translation" class="hidden">
+                        <p><strong>Перевод:</strong> {{ current_card.translation }}</p>
+                    </div>
+                    <button id="show-translation" class="btn">Показать перевод</button>
                 </div>
-                <button id="show-translation" class="btn">Показать перевод</button>
             </div>
-            <div class="navigation">
-                <a href="?card_id={{ prev_card.id }}" class="btn" {% if not prev_card %}disabled{% endif %}>Предыдущая</a>
-                <a href="?card_id={{ next_card.id }}" class="btn" {% if not next_card %}disabled{% endif %}>Следующая</a>
+            <div class="row">
+                <div class="col s6">
+                    <a href="?card_id={{ prev_card.id }}" class="btn {% if not prev_card %}disabled{% endif %}">Предыдущая</a>
+                </div>
+                <div class="col s6 right-align">
+                    <a href="?card_id={{ next_card.id }}" class="btn {% if not next_card %}disabled{% endif %}">Следующая</a>
+                </div>
             </div>
         {% else %}
             <p>Нет доступных карточек для изучения.</p>
         {% endif %}
     </main>
+
     <script>
         document.getElementById('show-translation')?.addEventListener('click', function() {
             const translationDiv = document.getElementById('translation');
@@ -41,5 +48,11 @@
             }
         });
     </script>
+
+    <!-- Footer -->
+    {% include 'footer.html' %}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>

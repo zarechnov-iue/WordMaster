@@ -1,8 +1,13 @@
 <!-- templates/messages.html -->
 {% if messages %}
-    <div class="messages">
-        {% for message in messages %}
-            <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
-        {% endfor %}
-    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            {% for message in messages %}
+                M.toast({
+                    html: "{{ message|escapejs }}",
+                    classes: "{% if message.tags %}{{ message.tags }}{% endif %}"
+                });
+            {% endfor %}
+        });
+    </script>
 {% endif %}

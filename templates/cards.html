@@ -1,4 +1,3 @@
-<!-- templates/cards.html -->
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -6,17 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Список карточек</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <header>
-        <h1>Список всех карточек</h1>
-    </header>
-    <main>
+    <!-- Header -->
+    {% include 'header.html' %}
+
+    <main class="container">
         <!-- Вывод сообщений -->
         {% include 'messages.html' %}
-    
-        <table class="card-table">
+
+        <table class="striped responsive-table">
             <thead>
                 <tr>
                     <th>Слово</th>
@@ -33,15 +33,15 @@
                         <td>{{ card.translation }}</td>
                         <td>
                             {% if card.image %}
-                                  <img src="{{ card.image.data }}" alt="{{ card.word }}" class="thumbnail">
+                                <img src="{{ card.image.data }}" alt="{{ card.word }}" class="thumbnail">
                             {% else %}
                                 Нет иллюстрации
                             {% endif %}
                         </td>
                         <td>
-                            <form method="post" action="{% url 'delete-card' card.id %}" class="delete-form">
+                            <form method="post" action="{% url 'delete-card' card.id %}" style="display:inline;">
                                 {% csrf_token %}
-                                <button type="submit" class="btn delete-btn">Удалить</button>
+                                <button type="submit" class="btn red">Удалить</button>
                             </form>
                         </td>
                     </tr>
@@ -54,5 +54,11 @@
             </tbody>
         </table>
     </main>
+
+    <!-- Footer -->
+    {% include 'footer.html' %}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>
